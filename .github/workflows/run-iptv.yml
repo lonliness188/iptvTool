@@ -2,8 +2,8 @@ name: Run IPTV Tool
 
 on:
   schedule:
-    - cron: '0 20 * * *'   # 每天 UTC 时间 20:00 运行，即北京时间次日凌晨4:00
-  workflow_dispatch:       # 同时允许你手动触发
+    - cron: '0 20 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,11 +21,10 @@ jobs:
       run: |
         pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        # 确保安装核心依赖，避免运行失败
         pip install requests
 
     - name: Run iptvTool
-      run: python main.py --all
+      run: python main.py all   # 关键修改：--all 改为 all
 
     - name: Upload results
       uses: actions/upload-artifact@v4
