@@ -1,3 +1,11 @@
+    - name: Create fake config
+      run: |
+        mkdir -p config
+        echo '{"data_dir": "data", "playlist_dir": "playlist"}' > config/common_config.json
+        echo '{"eas_ip": "127.0.0.1"}' > config/scraper_config.json
+        for f in area_codes.json generator_config.json formatter_config.json postprocessor_config.json; do
+          echo '{}' > "config/$f"
+        done
 name: Run IPTV Tool
 
 on:
